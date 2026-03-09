@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="weather-card">
+      <p class="eyebrow">Live Weather</p>
+      <h1>Weather Dashboard</h1>
+
+      <form id="weatherForm" class="search-bar">
+        <input
+          type="text"
+          id="cityInput"
+          placeholder="Enter a city..."
+          autocomplete="off"
+          required
+        />
+        <button type="submit">Search</button>
+      </form>
+
+      <p id="statusMessage" class="status">Search for a city to begin.</p>
+
+      <div id="weatherResult" class="weather-result hidden">
+        <div class="top-row">
+          <div>
+            <h2 id="cityName">Toronto</h2>
+            <p id="weatherDesc" class="muted">Clear sky</p>
+          </div>
+          <img id="weatherIcon" alt="Weather icon" />
+        </div>
+
+        <div class="temp" id="temperature">22°C</div>
+
+        <div class="details-grid">
+          <div class="detail-box">
+            <span class="label">Humidity</span>
+            <span id="humidity">48%</span>
+          </div>
+
+          <div class="detail-box">
+            <span class="label">Wind</span>
+            <span id="windSpeed">9 km/h</span>
+          </div>
+
+          <div class="detail-box">
+            <span class="label">Feels Like</span>
+            <span id="feelsLike">21°C</span>
+          </div>
+
+          <div class="detail-box">
+            <span class="label">Country</span>
+            <span id="country">CA</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
