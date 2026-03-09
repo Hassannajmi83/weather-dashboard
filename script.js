@@ -15,12 +15,14 @@ const weatherIcon = document.getElementById("weatherIcon");
 // Replace this with your actual OpenWeather API key
 const API_KEY = "13a78614d0e6df07aa9fc2b3207124e4";
 
+// Load last searched city
 const savedCity = localStorage.getItem("lastWeatherCity");
 if (savedCity) {
   cityInput.value = savedCity;
   fetchWeather(savedCity);
 }
 
+// Handle search form
 weatherForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -30,6 +32,7 @@ weatherForm.addEventListener("submit", (event) => {
   fetchWeather(city);
 });
 
+// Fetch weather data
 async function fetchWeather(city) {
   statusMessage.textContent = "Loading weather...";
   weatherResult.classList.add("hidden");
@@ -38,20 +41,24 @@ async function fetchWeather(city) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
 
     const response = await fetch(url);
+    const data = await response.json();
+
+    // Show actual API error message if something went wrong
     if (!response.ok) {
-      throw new Error("City not found.");
+      throw new Error(data.message || "Unable to fetch weather.");
     }
 
-    const data = await response.json();
     renderWeather(data);
     localStorage.setItem("lastWeatherCity", city);
     statusMessage.textContent = "Weather loaded.";
+
   } catch (error) {
     statusMessage.textContent = error.message || "Something went wrong.";
     weatherResult.classList.add("hidden");
   }
 }
 
+// Display weather
 function renderWeather(data) {
   cityName.textContent = data.name;
   weatherDesc.textContent = capitalizeWords(data.weather[0].description);
@@ -68,6 +75,7 @@ function renderWeather(data) {
   weatherResult.classList.remove("hidden");
 }
 
+// Capitalize words for weather description
 function capitalizeWords(text) {
   return text.replace(/\b\w/g, (char) => char.toUpperCase());
 }
